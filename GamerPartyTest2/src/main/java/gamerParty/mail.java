@@ -12,9 +12,9 @@ import javax.mail.internet.MimeMessage;
 
 public class mail {
 	String host = "smtp.naver.com";
-    String user = "depsociete62@naver.com"; 
-    String sender = "depsociete62@naver.com";
-    String password = "machineyoda11";
+    String user = ""; 
+    String sender = "";
+    String password = "";
     String to,subject,text;
     	public mail(String to, String subject, String text)
     	{
