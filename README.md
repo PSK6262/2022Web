@@ -4,3 +4,5 @@
 본인이 쓴 글 수정 삭제기능까지 있었는데 그건 없네요
 
 https://youtu.be/uNsWsRJfTP4
+
+구성 Tomcat 9 + Maven + H2DB(임시)
