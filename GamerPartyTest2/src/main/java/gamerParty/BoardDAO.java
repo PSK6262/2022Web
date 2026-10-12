@@ -9,15 +9,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BoardDAO {
-	final String JDBC_DRIVER = "org.h2.Driver";
-	final String JDBC_URL = "jdbc:h2:tcp://localhost/~/jwbookdb";
+	final String JDBC_DRIVER = "oracle.jdbc.OracleDriver";
+	final String JDBC_URL = "jdbc:oracle:thin:@localhost:1521/BUILDUP";
+	final String JDBC_USER = "buildup";
+	final String JDBC_PW = "1234";
 	
-	// DB 연결을 가져오는 메서드, DBCP를 사용하는 것이 좋음
+	// DB 연결을 가져오는 메서드
 	public Connection open() {
 		Connection conn = null;
 		try {
 			Class.forName(JDBC_DRIVER);
-			conn = DriverManager.getConnection(JDBC_URL,"jwbook","1234");
+			conn = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PW);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -27,7 +29,7 @@ public class BoardDAO {
 	public List<Board> getAll(int start,int size) throws Exception {
 		Connection conn = open();
 		List<Board> boardList = new ArrayList<>();
-		String sql = "select aid, username, title, type, PARSEDATETIME(date,'yyyy-MM-dd hh:mm:ss') as cdate from board order by aid desc limit ?,?";
+		String sql = "select aid, username, title, type, TO_CHAR(\"DATE\", 'YYYY-MM-DD HH24:MI:SS') as cdate from board order by aid desc offset ? rows fetch next ? rows only";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setInt(1,start);
 		pstmt.setInt(2, size);
@@ -43,7 +45,6 @@ public class BoardDAO {
 				n.setType(rs.getString("type"));
 				boardList.add(n);
 			}
-			conn.close();
 			return boardList;			
 		}
 	}
@@ -52,23 +53,21 @@ public class BoardDAO {
 		Connection conn = open();
 		
 		Board n = new Board();
-		String sql = "select aid, username, title, img, PARSEDATETIME(date,'yyyy-MM-dd hh:mm:ss') as cdate, content from board where aid=?";
+		String sql = "select aid, username, title, img, TO_CHAR(\"DATE\", 'YYYY-MM-DD HH24:MI:SS') as cdate, content from board where aid=?";
 	
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setInt(1, aid);
 		ResultSet rs = pstmt.executeQuery();
 		
-		rs.next();
-		
 		try(conn; pstmt; rs) {
-			n.setAid(rs.getInt("aid"));
-			n.setUsername(rs.getString("username"));
-			n.setTitle(rs.getString("title"));
-			n.setImg(rs.getString("img"));
-			n.setDate(rs.getString("cdate"));
-			n.setContent(rs.getString("content"));
-			pstmt.executeQuery();
-			conn.close();
+			if(rs.next()) {
+				n.setAid(rs.getInt("aid"));
+				n.setUsername(rs.getString("username"));
+				n.setTitle(rs.getString("title"));
+				n.setImg(rs.getString("img"));
+				n.setDate(rs.getString("cdate"));
+				n.setContent(rs.getString("content"));
+			}
 			return n;
 		}
 	}
@@ -76,7 +75,7 @@ public class BoardDAO {
 	public void addBoard(Board n) throws Exception {
 		Connection conn = open();
 		
-		String sql = "insert into board(title,username,img,date,content,type) values(?,?,?,CURRENT_TIMESTAMP(),?,?)";
+		String sql = "insert into board(title,username,img,\"DATE\",content,type) values(?,?,?,CURRENT_TIMESTAMP,?,?)";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		try(conn; pstmt) {
 			pstmt.setString(1, n.getTitle());
@@ -85,7 +84,6 @@ public class BoardDAO {
 			pstmt.setString(4, n.getContent());
 			pstmt.setString(5, n.getType());
 			pstmt.executeUpdate();
-			conn.close();
 		}
 	}
 	
@@ -220,7 +218,7 @@ public class BoardDAO {
 				acc.setNickname(rs.getString("nickname"));
 				acc.setPrefergame(rs.getString("prefergame"));
 				acc.setPreferrole(rs.getString("preferrole"));
-				acc.setEmail(rs.getString("image"));
+				acc.setIcon(rs.getString("image"));
 				acc.setPassword(rs.getString("password"));
 			}
 		}

@@ -1,0 +1,43 @@
+# Compiled Java Class Files
+*.class
+
+# Maven build output
+target/
+**/target/
+
+# Eclipse / Ant build output
+build/
+**/build/
+bin/
+**/bin/
+
+# Dynamic Web compiled classes
+**/WEB-INF/classes/
+
+# Eclipse Project Metadata
+.project
+.classpath
+.settings/
+**/.settings/
+.factorypath
+
+# IntelliJ & VS Code Metadata
+.idea/
+*.iml
+.vscode/
+
+# Package files (allow WEB-INF/lib dependencies)
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# Logs & Temporary files
+*.log
+temp/
+tmp/
+*.tmp
+Thumbs.db
+Desktop.ini
+.DS_Store
