@@ -11627,8 +11627,9 @@ body {
   font-size: 0.85rem;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  padding: 0.9rem 1rem;
+  padding: 0.75rem 0.6rem;
   border-bottom: 2px solid var(--gp-border);
+  white-space: nowrap;
 }
 
 .gp-table tbody tr {
@@ -11641,16 +11642,21 @@ body {
 }
 
 .gp-table tbody td {
-  padding: 1rem;
+  padding: 0.8rem 0.6rem;
   vertical-align: middle;
   border-bottom: 1px solid var(--gp-border);
   font-size: 0.95rem;
+  white-space: nowrap;
 }
 
 .gp-table-title {
   font-weight: 700;
   color: #1e293b;
   transition: color 0.15s ease;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .gp-table tbody tr:hover .gp-table-title {
@@ -11661,11 +11667,13 @@ body {
 .gp-tag {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   font-size: 0.78rem;
   font-weight: 700;
-  padding: 0.3rem 0.75rem;
+  padding: 0.25rem 0.65rem;
   border-radius: 9999px;
   line-height: 1;
+  white-space: nowrap;
 }
 
 .gp-tag-recruit {

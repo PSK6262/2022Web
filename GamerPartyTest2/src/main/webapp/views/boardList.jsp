@@ -268,11 +268,11 @@
                             <table class="gp-table">
                                 <thead>
                                     <tr>
-                                        <th style="width: 70px; text-align: center;">번호</th>
-                                        <th style="width: 90px; text-align: center;">태그</th>
+                                        <th style="width: 50px; text-align: center;">번호</th>
+                                        <th style="width: 80px; text-align: center;">태그</th>
                                         <th>제목</th>
                                         <th style="width: 120px;">작성자</th>
-                                        <th style="width: 150px; text-align: center;">작성일</th>
+                                        <th style="width: 160px; text-align: center;">작성일</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -299,8 +299,8 @@
                                                         </c:otherwise>
                                                     </c:choose>
                                                 </td>
-                                                <td>
-                                                    <span class="gp-table-title">${board.title}</span>
+                                                <td style="max-width: 320px;">
+                                                    <span class="gp-table-title" title="${board.title}">${board.title}</span>
                                                 </td>
                                                 <td class="text-secondary small">
                                                     <i class="bi bi-person me-1"></i>${board.username}
