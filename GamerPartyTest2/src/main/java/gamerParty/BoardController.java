@@ -36,6 +36,7 @@ public class BoardController extends HttpServlet {
 	
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
+		new java.io.File("c:/Temp/img").mkdirs();
 		dao = new BoardDAO();
 		ctx = getServletContext();		
 	}
@@ -146,7 +147,7 @@ public class BoardController extends HttpServlet {
 			ctx.log("뉴스 목록 생성 과정에서 문제 발생!!");
 			request.setAttribute("error", "글 목록이 정상적으로 처리되지 않았습니다!!");
 		}
-    	return "boardList.jsp";
+    	return "views/boardList.jsp";
     }
     
     public String getBoard(HttpServletRequest request) {
@@ -159,7 +160,7 @@ public class BoardController extends HttpServlet {
 			ctx.log("뉴스를 가져오는 과정에서 문제 발생!!");
 			request.setAttribute("error", "글을 정상적으로 가져오지 못했습니다!!");
 		}
-    	return "boardView.jsp";
+    	return "views/boardView.jsp";
     }
         
     // multipart 헤더에서 파일이름 추출
@@ -175,7 +176,7 @@ public class BoardController extends HttpServlet {
         return fileName; 
 	}
 	public String AccountPage(HttpServletRequest request) {
-		return "createAccount.jsp";
+		return "views/createAccount.jsp";
 	}
 	public String addAccount(HttpServletRequest request) throws Exception{
 		request.setCharacterEncoding("utf-8");
@@ -190,10 +191,10 @@ public class BoardController extends HttpServlet {
 		return "redirect:/board.nhn?action=listBoard&fpage=1";
 	}
 	public String myInfoPage(HttpServletRequest request) {
-		return "InfoPage.jsp";
+		return "views/InfoPage.jsp";
 	}
 	public String Admin(HttpServletRequest request) {
-		return "adminPage.jsp";
+		return "views/adminPage.jsp";
 	}
 	public String myInfoChange(HttpServletRequest request) {
 		Account acc = new Account();
@@ -222,9 +223,9 @@ public class BoardController extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-        return "board.nhn?action=listBoard&fpage=1";
+        return "redirect:/board.nhn?action=listBoard&fpage=1";
 	}
 	public String findAccount(HttpServletRequest request) {
-		return "findAccount.jsp";
+		return "views/findAccount.jsp";
 	}
 }
