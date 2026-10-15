@@ -2,7 +2,7 @@
 
 게이머 파티는 온라인 게임을 함께 플레이할 파티원이나 듀오를 찾고, 자유롭게 이야기를 나눌 수 있는 게임 커뮤니티 웹사이트입니다.
 
-- 개발자: 안동대학교 박성국 (이메일: qkrxotn60@naver.com)
+- 개발자: 안동대학교 박성국 (이메일: societe62@gmail.com)
 - 개발 환경: Java 11, JSP/Servlet, Apache Tomcat 9.0, Oracle Database 19c
 
 ---
